@@ -1,0 +1,47 @@
+name: iOS Beta unsigned ipa Build
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build-and-upload:
+    name: Build and upload to Artifacts
+    runs-on: macos-latest
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      LANGUAGE: en_US.UTF-8
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          repository: fluxerapp/flutter_client
+          ref: "beta"
+          submodules: recursive
+
+      - name: Install Flutter
+        run: |
+          git clone https://github.com/flutter/flutter.git
+          echo "$(pwd)/flutter/bin" >> $GITHUB_PATH
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Run build_runner
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Build
+        run: flutter build ios --no-codesign --release
+
+      - name: Packaging ipa
+        run: |
+          mkdir -p Payload
+          cp -r build/ios/iphoneos/Runner.app Payload/
+          zip -r Fluxer.ipa Payload
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Fluxer
+          path: Fluxer.ipa
