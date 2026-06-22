@@ -7,7 +7,7 @@ on:
 jobs:
   build-and-upload:
     name: Build and upload to Artifacts
-    runs-on: macos-latest
+    runs-on: macos-26
     env:
       LANG: en_US.UTF-8
       LC_ALL: en_US.UTF-8
