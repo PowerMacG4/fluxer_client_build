@@ -15,15 +15,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: "main"
-          path: "patch"
-
-      - name: Clone from Official Fluxer Client repository
-        uses: actions/checkout@v4
-        with:
           repository: fluxerapp/flutter_client
           ref: "beta"
           submodules: recursive
+        uses: actions/checkout@v4
+        with:
+          ref: "main"
+          path: "patch"
 
       - name: Install Flutter
         run: |
