@@ -12,16 +12,16 @@ jobs:
       LC_ALL: en_US.UTF-8
       LANGUAGE: en_US.UTF-8
     steps:
-      - name: Checkout repository
+      - name: Clone from Official Fluxer Client repository
         uses: actions/checkout@v4
         with:
           repository: fluxerapp/flutter_client
           ref: "beta"
           submodules: recursive
-        uses: actions/checkout@v4
-        with:
-          ref: "main"
-          path: "patch"
+
+      - name: Clone this repository
+        run: |
+          git clone https://github.com/PowerMacG4/fluxer_client_build.git patch
 
       - name: Install Flutter
         run: |
