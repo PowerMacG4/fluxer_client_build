@@ -13,6 +13,12 @@ jobs:
       LANGUAGE: en_US.UTF-8
     steps:
       - name: Checkout repository
+          uses: actions/checkout@v4
+          with:
+            ref: "main"
+            path: "patch"
+
+      - name: Clone from Official Fluxer Client repository
         uses: actions/checkout@v4
         with:
           repository: fluxerapp/flutter_client
@@ -28,7 +34,7 @@ jobs:
         run: flutter pub get
 
       - name: Patch spoof platform
-        run: patch -p1 -i platform_spoof.patch lib/core/api/fluxer_client_properties.dart
+        run: patch -p1 -i patch/platform_spoof.patch lib/core/api/fluxer_client_properties.dart
 
       - name: Run build_runner
         run: dart run build_runner build --delete-conflicting-outputs
