@@ -1,15 +1,15 @@
---- /home/nekokawa/temp/flutter_client/lib/core/api/fluxer_client_properties.dart.orig	2026-06-23 18:52:54.087247828 +0900
-+++ /home/nekokawa/temp/flutter_client/lib/core/api/fluxer_client_properties.dart	2026-06-23 18:47:06.250916920 +0900
-@@ -100,7 +100,7 @@ String resolveClientPlatform(TargetPlatf
+--- /Users/nekokawa/flutter_client/lib/core/api/fluxer_client_properties.dart.orig	2026-07-21 13:01:42
++++ /Users/nekokawa/flutter_client/lib/core/api/fluxer_client_properties.dart	2026-07-21 16:14:04
+@@ -104,7 +104,7 @@ String resolveClientPlatform(
      case TargetPlatform.android:
        return 'android';
      case TargetPlatform.iOS:
 -      return 'ios';
 +      return 'android';
-     case TargetPlatform.macOS:
      case TargetPlatform.linux:
-     case TargetPlatform.windows:
-@@ -126,7 +126,7 @@ String normalizeFluxerOperatingSystem()
+       return mobileFormFactor ? 'linux' : 'desktop';
+     case TargetPlatform.macOS:
+@@ -134,7 +134,7 @@ String normalizeFluxerOperatingSystem() {
    final String raw = Platform.operatingSystem.toLowerCase();
    return switch (raw) {
      'android' => 'android',
