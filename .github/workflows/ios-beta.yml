@@ -22,10 +22,18 @@ jobs:
       - name: Clone this repository
         run: git clone https://github.com/$GITHUB_REPOSITORY.git patch
 
-      - name: Install Flutter
-        run: |
-          git clone https://github.com/flutter/flutter.git
-          echo "$(pwd)/flutter/bin" >> $GITHUB_PATH
+      - name: Set up Flutter
+        # Temp use while waiting for a pr: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2
+        uses: axi92/flutter-action@72633a794ba0b23276fa4fc465a6cacb758a90c5
+        with:
+          channel: stable
+      - name: Restore pub cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
 
       - name: Get dependencies
         run: flutter pub get
